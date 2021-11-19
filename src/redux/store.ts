@@ -3,6 +3,7 @@ import thunk from "redux-thunk"
 import { combineReducers } from "redux";
 
 import authReducer from './reducers/authReducer';
+import uiReducer from "./reducers/uiReducer";
 
 
 declare global {
@@ -13,7 +14,8 @@ declare global {
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const reducers = combineReducers({
-    auth: authReducer
+    auth: authReducer,
+    ui: uiReducer
 });
 
 export const store = createStore(
