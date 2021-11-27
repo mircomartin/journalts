@@ -2,7 +2,8 @@ import { Dispatch } from "redux"
 import { Action } from "../types"
 import { ActionType } from '../types/index';
 import { googleAuthProvider } from "../../firebase/firebase-config";
-import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword, signInWithPopup, updateProfile } from "@firebase/auth";
+import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from "@firebase/auth";
+import Swal from 'sweetalert2'
 
 
 export const startLoginEmailPassword = (email: string, password: string) => {
@@ -32,11 +33,12 @@ export const startLoginEmailPassword = (email: string, password: string) => {
             })
 
         })
-        .catch((error) => {
-            console.log(error.code, error.code)
+        .catch((e) => {
+            console.log(e)
             dispatch({
                 type: ActionType.UI_FINISH_LOADING
             })
+            Swal.fire('Error', e.message, 'error')
         });
 
     }
@@ -63,9 +65,25 @@ export const startRegisterNameEmailPassword = (name: string, email: string, pass
                 }
             })
         })
-        .catch((error) => {
-            console.log(error.code, error.code)
+        .catch((e) => {
+            console.log(e)
+            Swal.fire('Error', e.message, 'error')
         });
+    }
+}
+
+export const startLogout = () => {
+    
+    return async (dispatch: Dispatch<Action>) => {
+
+        const auth = getAuth();
+
+        signOut(auth)
+
+        dispatch({
+            type: ActionType.LOGOUT
+        })
+        
     }
 }
 
@@ -91,6 +109,37 @@ export const startLoginGoogle = () => {
         .catch((error) => {
             console.log(error.code, error.code)
         });
+
+    }
+}
+
+export const setChecking = () => {
+    
+    return (dispatch: Dispatch<Action>) => {
+
+        dispatch({
+            type: ActionType.CHECKING
+        })
+
+    }
+}
+
+export const setLogged = () => {
+    return (dispatch: Dispatch<Action>) => {
+
+        dispatch({
+            type: ActionType.LOGGED
+        })
+
+    }
+}
+
+export const unLogged = () => {
+    return (dispatch: Dispatch<Action>) => {
+
+        dispatch({
+            type: ActionType.UNLOGGED
+        })
 
     }
 }

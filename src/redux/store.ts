@@ -4,6 +4,7 @@ import { combineReducers } from "redux";
 
 import authReducer from './reducers/authReducer';
 import uiReducer from "./reducers/uiReducer";
+import noteReducer from "./reducers/noteReducer";
 
 
 declare global {
@@ -15,7 +16,8 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const reducers = combineReducers({
     auth: authReducer,
-    ui: uiReducer
+    ui: uiReducer,
+    note: noteReducer
 });
 
 export const store = createStore(
