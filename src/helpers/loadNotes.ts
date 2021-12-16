@@ -5,7 +5,8 @@ export interface note {
     id: string,
     date: number,
     title: string,
-    body: string
+    body: string,
+    url?: string
 }
  
 export const loadNotes = async (uid: string) => {
@@ -18,7 +19,8 @@ export const loadNotes = async (uid: string) => {
             id: snapHijo.id,
             date: snapHijo.data().date,
             title: snapHijo.data().title,
-            body: snapHijo.data().body
+            body: snapHijo.data().body,
+            url: snapHijo.data().url
         })
       });
  

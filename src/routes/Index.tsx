@@ -9,18 +9,17 @@ import { bindActionCreators } from 'redux';
 import { authActions, notesActions, State } from '../redux';
 import { PublicRoute } from './PublicRoutes';
 import { PrivateRoute } from './PrivateRoutes';
-import { loadNotes } from '../helpers/loadNotes';
 
 export const Routes = () => {
 	const dispatch = useDispatch();
 	const { setChecking, setLogged, unLogged } = bindActionCreators(authActions, dispatch);
-	const { startLoadNotes } = bindActionCreators(notesActions, dispatch);
+	const { startLoadingNotes } = bindActionCreators(notesActions, dispatch);
 
 	const { checking, logged } = useSelector((state: State) => state.auth);
 
 	useEffect(() => {
 		const auth = getAuth();
-		onAuthStateChanged (auth, async (user) => {
+		onAuthStateChanged (auth, (user) => {
 			if (user?.uid) {
 				const { uid, displayName } = user;
 				dispatch({
@@ -33,10 +32,7 @@ export const Routes = () => {
 
 				setLogged();
 
-				const notes = await loadNotes(uid)
-
-				startLoadNotes(notes)
-
+				startLoadingNotes(uid)
 
 			} else {
 

@@ -12,7 +12,6 @@ export const Sidebar = () => {
     const { startLogout } = bindActionCreators(authActions, dispatch)
     const { startNewNote } = bindActionCreators(notesActions, dispatch)
 
-
     const { name } = useSelector((state: State) => state.auth );
 
     const handleAddNew = () => {

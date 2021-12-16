@@ -84,6 +84,10 @@ export const startLogout = () => {
             type: ActionType.LOGOUT
         })
         
+        dispatch({
+            type: ActionType.NOTE_CLEANING
+        })
+        
     }
 }
 

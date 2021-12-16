@@ -3,11 +3,13 @@ import { Action, ActionType } from "../types";
 interface State { 
     loading: boolean,
     msg: string,
+    checking: boolean,
 }
 
 const initialState = {
     loading: false,
     msg: '',
+    checking: true,
 }
 
 const uiReducer = (state: State = initialState, action: Action) => {

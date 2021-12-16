@@ -1,4 +1,4 @@
-import { note } from "../../helpers/loadNotes";
+import { note } from '../../helpers/loadNotes';
 
 export enum ActionType {
     LOGIN = "Login",
@@ -18,9 +18,8 @@ export enum ActionType {
     NOTE_UPDATE = "NOTE_UpdateNote",
     NOTE_FILEURL = "NOTE_FileUrl",
     NOTE_DELETE = "NOTE_DeleteNote",
-    NOTE_LOGOUT = "NOTE_LogOut"
-
-
+    NOTE_LOGOUT = "NOTE_LogOut",
+    NOTE_CLEANING = "NOTE_Clenaning"
 
 }
 
@@ -48,6 +47,7 @@ export interface Unlogged {
     type: "Unlogged",
 }
 
+
 /* UI Types */
 
 export interface SetError {
@@ -67,25 +67,17 @@ export interface FinishLoading {
     type: "UI_FinishLoading",
 }
 
+
 /* Note Types */
+
 export interface AddNewNote {
     type: "NOTE_AddNew",
-    payload: {
-        id: string,
-        title: string,
-        body: string,
-        date: number
-    }
+    payload: note
 }
 
 export interface ActiveNote {
     type: "NOTE_ActiveNote"
-    payload:  {
-        id: string,
-        title: string,
-        body: string,
-        date: number,
-    },
+    payload: note
 }
 
 export interface LoadNotes {
@@ -93,4 +85,20 @@ export interface LoadNotes {
     payload:  note[]
 }
 
-export type Action = Login | Logout | SetChecking | SetError | RemoveError | StartLoading | FinishLoading | Logged | Unlogged | AddNewNote | ActiveNote | LoadNotes
+export interface UpdateNote {
+    type: "NOTE_UpdateNote"
+    payload:  note
+}
+
+export interface DeleteNote {
+    type: "NOTE_DeleteNote"
+    payload:  string
+}
+
+export interface CleaningNote {
+    type: "NOTE_Clenaning"
+    payload?:  string
+}
+
+export type Action = Login | Logout | SetChecking | SetError | RemoveError | StartLoading | FinishLoading | Logged 
+| Unlogged | AddNewNote | ActiveNote | LoadNotes | UpdateNote | DeleteNote | CleaningNote

@@ -1,7 +1,24 @@
+import { useDispatch } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { note } from '../../helpers/loadNotes';
+import { notesActions } from '../../redux';
 
-export const JournalEntry = () => {
+const moment = require('moment');
+
+export const JournalEntry = ({ id, date, title, body }:note) => {
+
+    const dispatch = useDispatch();
+    const { activeNote } = bindActionCreators(notesActions, dispatch);
+    const noteDate = moment(date)
+
+    const handleEntryClick = ():void => {
+
+        activeNote({id, date, title, body})
+
+    }
+
     return (
-        <div className="journal__entry pointer">
+        <div className="journal__entry pointer" onClick={handleEntryClick}>
 
             <div className="journal__entry-picture"
             style={{
@@ -12,16 +29,16 @@ export const JournalEntry = () => {
 
             <div className="journal__entry-body">
                 <p className="journal__entry-title">
-                    Un nuevo dia
+                    {title}
                 </p>
                 <p className="journal__entry-content">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+                    {body}
                 </p>
             </div>
 
             <div className="journal__entry-date-box">
-                <span>Monday</span>
-                <h4>28</h4>
+                <span>{noteDate.format('dddd')}</span>
+                <h4>{noteDate.format('Do')}</h4>
             </div>
 
         </div>

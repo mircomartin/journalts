@@ -1,9 +1,9 @@
-import { note } from "../../helpers/loadNotes";
-import { Action, ActionType, ActiveNote } from "../types";
+import { note } from '../../helpers/loadNotes';
+import { Action, ActionType } from "../types";
 
 interface State { 
     notes: note[],
-    active: ActiveNote | null
+    active: note | any
 }
 
 const initialState = {
@@ -23,7 +23,36 @@ const noteReducer = (state: State = initialState, action: Action) => {
         case ActionType.NOTE_LOAD: {
             return {
                 ...state,
-                notes: action.payload
+                notes: [...action.payload]
+            }
+        }
+        case ActionType.NOTE_ADD_NEW: {
+            return {
+                ...state,
+                notes: [action.payload,...state.notes]
+            }
+        }
+        case ActionType.NOTE_UPDATE: {
+            return {
+                ...state,
+                notes: state.notes.map(
+                    note => note.id === action.payload.id
+                        ? action.payload
+                        : note
+                )
+            }
+        }
+        case ActionType.NOTE_DELETE: {
+            return {
+                ...state,
+                notes: state.notes.filter( note => note.id !== action.payload ),
+                active: null
+            }
+        }
+        case ActionType.NOTE_CLEANING: {
+            return {
+                notes: [],
+                active: null
             }
         }
         default:
